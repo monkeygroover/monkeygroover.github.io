@@ -8,25 +8,25 @@
     var R = 63, G = 131, B = 200
 	
     //shape a
-    var xa = new Array();
-    var ya = new Array();
-    var za = new Array();
+    var xa = new Array()
+    var ya = new Array()
+    var za = new Array()
     //shape b
-    var xb = new Array();
-    var yb = new Array();
-    var zb = new Array();
+    var xb = new Array()
+    var yb = new Array()
+    var zb = new Array()
 
-    var a = 0;
-    var b = 0;
-    var c = 0;
-    var currStep = 0;
-    var step = 0.02;
-    var paused = false;
+    var a = 0
+    var b = 0
+    var c = 0
+    var currStep = 0
+    var step = 0.02
+    var paused = false
     
     var d = 0
 
-    var centreX = 0;
-    var centerY = 0;
+    var centreX = 0
+    var centerY = 0
 
     function rndGauss() {
         return (((Math.random() + Math.random() + Math.random() + Math.random() + Math.random() + Math.random()) - 3) / 3) 
@@ -35,7 +35,7 @@
 
     function shadeColour(percent) {
     	var t = percent < 0 ? 0:255, p = percent < 0 ? percent*-1:percent
-	return "rgb("+(Math.round((t-R)*p)+R)+","+(Math.round((t-G)*p)+G)+","+(Math.round((t-B)*p)+B)+")";
+	return "rgb("+(Math.round((t-R)*p)+R)+","+(Math.round((t-G)*p)+G)+","+(Math.round((t-B)*p)+B)+")"
     }
 
     function init()
@@ -72,44 +72,44 @@
             x = rndGauss()
             y = rndGauss()
             z = rndGauss()
-            norm = ( 0.90 + Math.random() * 0.2 )/ Math.sqrt(x*x +y*y +z*z)
+            norm = 3 * rndGauss() / Math.sqrt(x*x +y*y +z*z)
 
             xb[i]=x*norm
             yb[i]=y*norm
             zb[i]=z*norm
         }
 
-        mainLoop();
+        mainLoop()
     }
 
     function mainLoop()
     {
-        a = 0.0;
-        b += 0.01;
-        c += 0.03;
+        a = 0.0
+        b += 0.01
+        c += 0.03
         
-        d += 0.5;
+        d += 0.5
 
-        var ca = Math.cos(a);
-        var sa = Math.sin(a);
-        var cb = Math.cos(b);
-        var sb = Math.sin(b);
-        var cc = Math.cos(c);
-        var sc = Math.sin(c);
+        var ca = Math.cos(a)
+        var sa = Math.sin(a)
+        var cb = Math.cos(b)
+        var sb = Math.sin(b)
+        var cc = Math.cos(c)
+        var sc = Math.sin(c)
         
         var throb = Math.sin(d) * 0.5;
 
-        var canvas = document.getElementById('view');
-        var ctx = canvas.getContext('2d');
+        var canvas = document.getElementById('view')
+        var ctx = canvas.getContext('2d')
         
-	ctx.canvas.width  = window.innerWidth;
-        ctx.canvas.height = window.innerHeight;
+	ctx.canvas.width  = window.innerWidth
+        ctx.canvas.height = window.innerHeight
 				
 	ctx.fillStyle = "black"
         ctx.fillRect(0, 0, canvas.width, canvas.height)
 
-        centreX = canvas.width / 2;
-        centerY = canvas.height / 2;
+        centreX = canvas.width / 2
+        centerY = canvas.height / 2
 
 	ctx.globalAlpha = 0.3
 		
@@ -118,21 +118,21 @@
             //move each particle  
 
             //morph!!
-            var fraction = Math.cos(currStep*8) + 1;
-            var fraction2 = 2 - fraction;
+            var fraction = Math.cos(currStep*8) + 1
+            var fraction2 = 2 - fraction
 
-            var x0 = xa[i] * fraction + xb[i] * fraction2;
-            var y0 = ya[i] * fraction + yb[i] * fraction2;
-            var z0 = za[i] * fraction + zb[i] * fraction2;
+            var x0 = xa[i] * fraction + xb[i] * fraction2
+            var y0 = ya[i] * fraction + yb[i] * fraction2
+            var z0 = za[i] * fraction + zb[i] * fraction2
 
             //rotate
-            var x1 = x0*(ca*cc-sa*sb*sc) - (y0*sa*cb) + z0*(ca*sc+sa*sb*cc);
-            var y1 = x0*(sa*cc+sb*ca*sc) +  (y0*ca*cb) + z0*(sa*sc-sb*ca*cc);
-            var z1 = -x0*sc*cb + y0*sb + z0*cb*cc - 1 + throb;
+            var x1 = x0*(ca*cc-sa*sb*sc) - (y0*sa*cb) + z0*(ca*sc+sa*sb*cc)
+            var y1 = x0*(sa*cc+sb*ca*sc) +  (y0*ca*cb) + z0*(sa*sc-sb*ca*cc)
+            var z1 = -x0*sc*cb + y0*sb + z0*cb*cc - 1 + throb
            
-            ctx.fillStyle = shadeColour(-(-z1/6));
+            ctx.fillStyle = shadeColour(-(-z1/6))
 			
-            ctx.fillRect(centreX + (600*x1)/(z1 + 9), centerY + (600*y1)/(z1 + 9), 3-z1, 3-z1);
+            ctx.fillRect(centreX + (600*x1)/(z1 + 9), centerY + (600*y1)/(z1 + 9), 3-z1, 3-z1)
         }
 
         if (!paused)
@@ -141,17 +141,17 @@
 
             if ((currStep % (Math.PI/8))  < 0.02)
             {
-                pauseCount = 0;
-                paused = true;  
+                pauseCount = 0
+                paused = true
             }
         }
         else 
         {
-            ++pauseCount;
-            if (pauseCount > 100) paused = false;
+            ++pauseCount
+            if (pauseCount > 100) paused = false
         }
 
-        setTimeout('mainLoop()', 5);
+        setTimeout('mainLoop()', 5)
     }
   </script>
 </head>
