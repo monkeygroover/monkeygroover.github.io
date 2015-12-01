@@ -128,7 +128,7 @@
             //rotate
             var x1 = x0*(ca*cc-sa*sb*sc) - (y0*sa*cb) + z0*(ca*sc+sa*sb*cc)
             var y1 = x0*(sa*cc+sb*ca*sc) +  (y0*ca*cb) + z0*(sa*sc-sb*ca*cc)
-            var z1 = -x0*sc*cb + y0*sb + z0*cb*cc - 1 + throb
+            var z1 = -x0*sc*cb + y0*sb + z0*cb*cc //- 1 + throb
            
             ctx.fillStyle = shadeColour(-(-z1/6))
 			
