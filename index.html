@@ -22,6 +22,8 @@
     var currStep = 0;
     var step = 0.02;
     var paused = false;
+    
+    var d = 0
 
     var centreX = 0;
     var centerY = 0;
@@ -85,6 +87,8 @@
         a = 0.0;
         b += 0.01;
         c += 0.03;
+        
+        d += 0.5;
 
         var ca = Math.cos(a);
         var sa = Math.sin(a);
@@ -92,6 +96,8 @@
         var sb = Math.sin(b);
         var cc = Math.cos(c);
         var sc = Math.sin(c);
+        
+        var throb = Math.sin(d) * 0.5;
 
         var canvas = document.getElementById('view');
         var ctx = canvas.getContext('2d');
@@ -122,7 +128,7 @@
             //rotate
             var x1 = x0*(ca*cc-sa*sb*sc) - (y0*sa*cb) + z0*(ca*sc+sa*sb*cc);
             var y1 = x0*(sa*cc+sb*ca*sc) +  (y0*ca*cb) + z0*(sa*sc-sb*ca*cc);
-            var z1 = -x0*sc*cb + y0*sb + z0*cb*cc;
+            var z1 = -x0*sc*cb + y0*sb + z0*cb*cc - 1 + throb;
            
             ctx.fillStyle = shadeColour(-(-z1/6));
 			
@@ -142,7 +148,7 @@
         else 
         {
             ++pauseCount;
-            if (pauseCount > 200) paused = false;
+            if (pauseCount > 100) paused = false;
         }
 
         setTimeout('mainLoop()', 5);
