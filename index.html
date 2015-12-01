@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8"/>
+  <script type="application/javascript">
+	var N = 12000;  // # of dots to use, multiple of 12 please!!
+
+	var R = 63, G = 131, B = 200
+	
+    //shape a
+    var xa = new Array();
+    var ya = new Array();
+    var za = new Array();
+    //shape b
+    var xb = new Array();
+    var yb = new Array();
+    var zb = new Array();
+
+    var a = 0;
+    var b = 0;
+    var c = 0;
+    var currStep = 0;
+    var step = 0.02;
+    var paused = false;
+
+    var centreX = 0;
+    var centerY = 0;
+
+    function rndGauss() {
+        return (((Math.random() + Math.random() + Math.random() + Math.random() + Math.random() + Math.random()) - 3) / 3) 
+    }
+
+
+	function shadeColour(percent) {
+	  var t = percent < 0 ? 0:255, p = percent < 0 ? percent*-1:percent
+	  return "rgb("+(Math.round((t-R)*p)+R)+","+(Math.round((t-G)*p)+G)+","+(Math.round((t-B)*p)+B)+")";
+	}
+
+    function init()
+    {    
+        //setup all points
+
+        //shape a
+        //top
+        for(i=0; i < N/12; i++) {xa[i] = i*24/N - 1;            ya[i] = -1;                    za[i] = 1;}
+        for(i=0; i < N/12; i++) {xa[i+N/12] = 1;                ya[i+N/12] = i*24/N - 1;       za[i+N/12] = 1;} 
+        for(i=0; i < N/12; i++) {xa[i+N/12*2] = (i+1)*24/N - 1; ya[i+N/12*2] = 1;              za[i+N/12*2] = 1;} // (i+1) correct missing dot at 1,1,1
+        for(i=0; i < N/12; i++) {xa[i+N/12*3] = -1;             ya[i+N/12*3] = (i+1)*24/N - 1; za[i+N/12*3] = 1;} // (i+1) correct missing dot at 1,1,1
+
+        //bottom
+        for(i=0; i < N/12; i++) {xa[i+N/12*4] = i*24/N - 1; ya[i+N/12*4] = -1;         za[i+N/12*4] = -1;}
+        for(i=0; i < N/12; i++) {xa[i+N/12*5] = 1;          ya[i+N/12*5] = i*24/N - 1; za[i+N/12*5] = -1;}
+        for(i=0; i < N/12; i++) {xa[i+N/12*6] = i*24/N - 1; ya[i+N/12*6] = 1;          za[i+N/12*6] = -1;}
+        for(i=0; i < N/12; i++) {xa[i+N/12*7] = -1;         ya[i+N/12*7] = i*24/N - 1; za[i+N/12*7] = -1;}
+
+        //columns
+        for(i=0; i < N/12; i++) {xa[i+N/12*8] = 1;  ya[i+N/12*8]  = 1; za[i+N/12*8]  = i*24/N - 1;} 
+        for(i=0; i < N/12; i++) {xa[i+N/12*9] = 1;  ya[i+N/12*9]  =-1; za[i+N/12*9]  = i*24/N - 1;}
+        for(i=0; i < N/12; i++) {xa[i+N/12*10] =-1; ya[i+N/12*10] = 1; za[i+N/12*10] = i*24/N - 1;}
+        for(i=0; i < N/12; i++) {xa[i+N/12*11] =-1; ya[i+N/12*11] =-1; za[i+N/12*11] = i*24/N - 1;}
+
+		//"fuzz" all the points to make it look blurred
+		for (i = 0; i < N; i++) xa[i] = xa[i] - 0.05 + Math.random() * 0.1
+		for (i = 0; i < N; i++) ya[i] = ya[i] - 0.05 + Math.random() * 0.1
+		for (i = 0; i < N; i++) za[i] = za[i] - 0.05 + Math.random() * 0.1
+		
+        //shape b
+        for(i=0; i < N; i++) 
+        {
+            x = rndGauss()
+            y = rndGauss()
+            z = rndGauss()
+            norm = ( 0.90 + Math.random() * 0.2 )/ Math.sqrt(x*x +y*y +z*z)
+
+            xb[i]=x*norm
+            yb[i]=y*norm
+            zb[i]=z*norm
+        }
+
+        mainLoop();
+    }
+
+    function mainLoop()
+    {
+        a = 0.0;
+        b += 0.01;
+        c += 0.03;
+
+        var ca = Math.cos(a);
+        var sa = Math.sin(a);
+        var cb = Math.cos(b);
+        var sb = Math.sin(b);
+        var cc = Math.cos(c);
+        var sc = Math.sin(c);
+
+        var canvas = document.getElementById('view');
+        var ctx = canvas.getContext('2d');
+        
+		ctx.canvas.width  = window.innerWidth;
+        ctx.canvas.height = window.innerHeight;
+				
+		ctx.fillStyle = "black"
+        ctx.fillRect(0, 0, canvas.width, canvas.height)
+
+        centreX = canvas.width / 2;
+        centerY = canvas.height / 2;
+
+		ctx.globalAlpha = 0.3
+		
+        for (i = 0; i < N; i++)
+        {
+            //move each particle  
+
+            //morph!!
+            var fraction = Math.cos(currStep) + 1;
+            var fraction2 = 2 - fraction;
+
+            var x0 = xa[i] * fraction + xb[i] * fraction2;
+            var y0 = ya[i] * fraction + yb[i] * fraction2;
+            var z0 = za[i] * fraction + zb[i] * fraction2;
+
+            //rotate
+            var x1 = x0*(ca*cc-sa*sb*sc) - (y0*sa*cb) + z0*(ca*sc+sa*sb*cc);
+            var y1 = x0*(sa*cc+sb*ca*sc) +  (y0*ca*cb) + z0*(sa*sc-sb*ca*cc);
+            var z1 = -x0*sc*cb + y0*sb + z0*cb*cc;
+           
+            ctx.fillStyle = shadeColour(-(-z1/6));
+			
+            ctx.fillRect(centreX + (600*x1)/(z1 + 9), centerY + (600*y1)/(z1 + 9), 3-z1, 3-z1);
+        }
+
+        if (!paused)
+        {
+            currStep += step;
+
+            if ((currStep % Math.PI)  < 0.02)
+            {
+                pauseCount = 0;
+                paused = true;  
+            }
+        }
+        else 
+        {
+            ++pauseCount;
+            if (pauseCount > 200) paused = false;
+        }
+
+        setTimeout('mainLoop()', 5);
+    }
+  </script>
+</head>
+
+<body onload="init();">
+ <canvas id="view" width="800" height="800"></canvas>
+</body>
+</html>
