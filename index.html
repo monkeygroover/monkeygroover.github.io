@@ -112,7 +112,7 @@
             //move each particle  
 
             //morph!!
-            var fraction = Math.cos(currStep) + 1;
+            var fraction = Math.cos(currStep*8) + 1;
             var fraction2 = 2 - fraction;
 
             var x0 = xa[i] * fraction + xb[i] * fraction2;
@@ -133,7 +133,7 @@
         {
             currStep += step;
 
-            if ((currStep % Math.PI)  < 0.02)
+            if ((currStep % (Math.PI/8))  < 0.02)
             {
                 pauseCount = 0;
                 paused = true;  
