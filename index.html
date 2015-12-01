@@ -3,9 +3,9 @@
 <head>
 <meta charset="utf-8"/>
   <script type="application/javascript">
-	var N = 1200;  // # of dots to use, multiple of 12 please!!
+    var N = 12000;  // # of dots to use, multiple of 12 please!!
 
-	var R = 63, G = 131, B = 200
+    var R = 63, G = 131, B = 200
 	
     //shape a
     var xa = new Array();
@@ -31,10 +31,10 @@
     }
 
 
-	function shadeColour(percent) {
-	  var t = percent < 0 ? 0:255, p = percent < 0 ? percent*-1:percent
-	  return "rgb("+(Math.round((t-R)*p)+R)+","+(Math.round((t-G)*p)+G)+","+(Math.round((t-B)*p)+B)+")";
-	}
+    function shadeColour(percent) {
+    	var t = percent < 0 ? 0:255, p = percent < 0 ? percent*-1:percent
+	return "rgb("+(Math.round((t-R)*p)+R)+","+(Math.round((t-G)*p)+G)+","+(Math.round((t-B)*p)+B)+")";
+    }
 
     function init()
     {    
@@ -59,10 +59,10 @@
         for(i=0; i < N/12; i++) {xa[i+N/12*10] =-1; ya[i+N/12*10] = 1; za[i+N/12*10] = i*24/N - 1;}
         for(i=0; i < N/12; i++) {xa[i+N/12*11] =-1; ya[i+N/12*11] =-1; za[i+N/12*11] = i*24/N - 1;}
 
-		//"fuzz" all the points to make it look blurred
-		for (i = 0; i < N; i++) xa[i] = xa[i] - 0.05 + Math.random() * 0.1
-		for (i = 0; i < N; i++) ya[i] = ya[i] - 0.05 + Math.random() * 0.1
-		for (i = 0; i < N; i++) za[i] = za[i] - 0.05 + Math.random() * 0.1
+	//"fuzz" all the points to make it look blurred
+	for (i = 0; i < N; i++) xa[i] = xa[i] - 0.05 + Math.random() * 0.1
+	for (i = 0; i < N; i++) ya[i] = ya[i] - 0.05 + Math.random() * 0.1
+	for (i = 0; i < N; i++) za[i] = za[i] - 0.05 + Math.random() * 0.1
 		
         //shape b
         for(i=0; i < N; i++) 
@@ -96,16 +96,16 @@
         var canvas = document.getElementById('view');
         var ctx = canvas.getContext('2d');
         
-		ctx.canvas.width  = window.innerWidth;
+	ctx.canvas.width  = window.innerWidth;
         ctx.canvas.height = window.innerHeight;
 				
-		ctx.fillStyle = "black"
+	ctx.fillStyle = "black"
         ctx.fillRect(0, 0, canvas.width, canvas.height)
 
         centreX = canvas.width / 2;
         centerY = canvas.height / 2;
 
-		ctx.globalAlpha = 0.3
+	ctx.globalAlpha = 0.3
 		
         for (i = 0; i < N; i++)
         {
