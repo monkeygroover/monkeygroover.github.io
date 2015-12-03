@@ -72,7 +72,7 @@
             x = rndGauss()
             y = rndGauss()
             z = rndGauss()
-            norm = 3 * rndGauss() / Math.sqrt(x*x +y*y +z*z)
+            norm = (1 - Math.abs(rndGauss())) / Math.sqrt(x*x +y*y +z*z)
 
             xb[i]=x*norm
             yb[i]=y*norm
