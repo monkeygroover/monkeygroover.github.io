@@ -16,7 +16,7 @@
   </style>
 
   <script type="application/javascript">
-    var N = 3000;  // # of dots to use, multiple of 12 please!!
+    var N = 30000;  // # of dots to use, multiple of 12 please!!
 
     var R = 63, G = 131, B = 200
 
@@ -149,7 +149,7 @@
         }
         else {
             ++pauseCount
-            if (pauseCount > 100) paused = false
+            if (pauseCount > 1000) paused = false
         }
 
         setTimeout('mainLoop()', 5)
