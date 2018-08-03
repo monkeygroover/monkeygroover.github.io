@@ -125,9 +125,9 @@
             //var fraction = Math.cos(currStep*8) + 1
             //var fraction2 = 2 - fraction
 
-            var x0 = xa[i] * fraction //+ xb[i] * fraction2
-            var y0 = ya[i] * fraction //+ yb[i] * fraction2
-            var z0 = za[i] * fraction //+ zb[i] * fraction2
+            var x0 = xa[i] //* fraction + xb[i] * fraction2
+            var y0 = ya[i] //* fraction + yb[i] * fraction2
+            var z0 = za[i] //* fraction + zb[i] * fraction2
 
             //rotate
             var x1 = x0*(ca*cc-sa*sb*sc) - (y0*sa*cb) + z0*(ca*sc+sa*sb*cc)
