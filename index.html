@@ -134,7 +134,7 @@
             var y1 = x0*(sa*cc+sb*ca*sc) +  (y0*ca*cb) + z0*(sa*sc-sb*ca*cc)
             var z1 = -x0*sc*cb + y0*sb + z0*cb*cc
 
-            ctx.fillStyle = shadeColour(-(-z1/12))
+            ctx.fillStyle = shadeColour(-(-z1/3))
 
             ctx.fillRect(centreX + (2000*x1)/(z1 + 9), centerY + (2000*y1)/(z1 + 9), 5-z1, 5-z1)
         }
