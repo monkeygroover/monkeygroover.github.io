@@ -65,7 +65,7 @@
     {
         //setup all points
 
-        //shape a
+        //cube outline lines
         //top
         for(i=0; i < N/12; i++) {xa[i] = i*24/N - 1;            ya[i] = -1;                    za[i] = 1;}
         for(i=0; i < N/12; i++) {xa[i+N/12] = 1;                ya[i+N/12] = i*24/N - 1;       za[i+N/12] = 1;}
@@ -89,13 +89,8 @@
 	for (i = 0; i < N; i++) ya[i] = ya[i] - 0.05 + Math.random() * 0.1
 	for (i = 0; i < N; i++) za[i] = za[i] - 0.05 + Math.random() * 0.1
 
-        //shape b
+        //volumetric dots inside
         for(i=0; i < N; i++) {
-            //x = rndGauss()
-            //y = rndGauss()
-            //z = rndGauss()
-            //norm = 1.5 * (1 - Math.abs(rndGauss())) / Math.sqrt(x*x +y*y +z*z)
-
             xb[i]=rndUniform()
             yb[i]=rndUniform()
             zb[i]=rndUniform()
@@ -133,13 +128,9 @@
         for (i = 0; i < N; i++) {
             //move each particle
 
-            //morph!!
-            //var fraction = Math.cos(currStep*8) + 1
-            //var fraction2 = 2 - fraction
-
-            var x0 = xa[i] //* fraction + xb[i] * fraction2
-            var y0 = ya[i] //* fraction + yb[i] * fraction2
-            var z0 = za[i] //* fraction + zb[i] * fraction2
+            var x0 = xa[i]
+            var y0 = ya[i]
+            var z0 = za[i]
 
             //rotate
             var x1 = x0*(ca*cc-sa*sb*sc) - (y0*sa*cb) + z0*(ca*sc+sa*sb*cc)
@@ -148,12 +139,12 @@
 
             ctx.fillStyle = shadeColour((-z1/3))
 
-            ctx.fillRect(centreX + (2000*x1)/(z1 + 9), centerY + (2000*y1)/(z1 + 9), 5-z1, 5-z1)
+            ctx.fillRect(centreX + (1800*x1)/(z1 + 9), centerY + (1800*y1)/(z1 + 9), 5-z1, 5-z1)
 		
-	    // hack.. drw second set of points (todo: tidy up)
-	    x0 = xb[i] //* fraction + xb[i] * fraction2
-            y0 = yb[i] //* fraction + yb[i] * fraction2
-            z0 = zb[i] //* fraction + zb[i] * fraction2
+	    //draw second set of points (todo: tidy up)
+	    x0 = xb[i]
+            y0 = yb[i]
+            z0 = zb[i] 
 
             //rotate
             x1 = x0*(ca*cc-sa*sb*sc) - (y0*sa*cb) + z0*(ca*sc+sa*sb*cc)
@@ -162,21 +153,10 @@
 
             ctx.fillStyle = shadeColour2((-z1/3))
 
-            ctx.fillRect(centreX + (2000*x1)/(z1 + 9), centerY + (2000*y1)/(z1 + 9), 2-z1, 2-z1)
+            ctx.fillRect(centreX + (1800*x1)/(z1 + 9), centerY + (1800*y1)/(z1 + 9), 4-z1, 4-z1)
         }
 
-        if (!paused) {
-            currStep += step;
-
-            if ((currStep % (Math.PI/8))  < 0.02) {
-                pauseCount = 0
-                paused = true
-            }
-        }
-        else {
-            ++pauseCount
-            if (pauseCount > 400) paused = false
-        }
+        currStep += step;
 
         setTimeout('mainLoop()', 0)
     }
