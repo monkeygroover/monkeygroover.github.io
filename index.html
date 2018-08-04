@@ -42,7 +42,11 @@
     function rndGauss() {
         return (((Math.random() + Math.random() + Math.random() + Math.random() + Math.random() + Math.random()) - 3) / 3)
     }
-
+    
+    function rndUniform() {
+        return (((Math.random() + Math.random()) - 1))
+    }
+	  
 
     function shadeColour(percent) {
     	var t = percent < 0 ? 0:255, p = percent < 0 ? percent*-1:percent
@@ -79,14 +83,14 @@
 
         //shape b
         for(i=0; i < N; i++) {
-            x = rndGauss()
-            y = rndGauss()
-            z = rndGauss()
-            norm = 1.5 * (1 - Math.abs(rndGauss())) / Math.sqrt(x*x +y*y +z*z)
+            //x = rndGauss()
+            //y = rndGauss()
+            //z = rndGauss()
+            //norm = 1.5 * (1 - Math.abs(rndGauss())) / Math.sqrt(x*x +y*y +z*z)
 
-            xb[i]=x*norm
-            yb[i]=y*norm
-            zb[i]=z*norm
+            xb[i]=rndUniform()
+            yb[i]=rndUniform()
+            zb[i]=rndUniform()
         }
 
         mainLoop()
@@ -133,6 +137,20 @@
             var x1 = x0*(ca*cc-sa*sb*sc) - (y0*sa*cb) + z0*(ca*sc+sa*sb*cc)
             var y1 = x0*(sa*cc+sb*ca*sc) +  (y0*ca*cb) + z0*(sa*sc-sb*ca*cc)
             var z1 = -x0*sc*cb + y0*sb + z0*cb*cc
+
+            ctx.fillStyle = shadeColour((-z1/3))
+
+            ctx.fillRect(centreX + (2000*x1)/(z1 + 9), centerY + (2000*y1)/(z1 + 9), 5-z1, 5-z1)
+		
+	    // hack.. drw second set of points (todo: tidy up)
+	    x0 = xb[i] //* fraction + xb[i] * fraction2
+            y0 = yb[i] //* fraction + yb[i] * fraction2
+            z0 = zb[i] //* fraction + zb[i] * fraction2
+
+            //rotate
+            x1 = x0*(ca*cc-sa*sb*sc) - (y0*sa*cb) + z0*(ca*sc+sa*sb*cc)
+            y1 = x0*(sa*cc+sb*ca*sc) +  (y0*ca*cb) + z0*(sa*sc-sb*ca*cc)
+            z1 = -x0*sc*cb + y0*sb + z0*cb*cc
 
             ctx.fillStyle = shadeColour((-z1/3))
 
