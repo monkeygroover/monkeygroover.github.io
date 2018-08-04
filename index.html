@@ -18,8 +18,9 @@
   <script type="application/javascript">
     var N = 4500;  // # of dots to use, multiple of 12 please!!
 
-    var R = 63, G = 131, B = 200
-
+    var R = 163, G = 121, B = 200
+    var R2 = 63, G2 = 131, B2 = 200
+    
     //shape a
     var xa = new Array()
     var ya = new Array()
@@ -49,14 +50,14 @@
 
     function shadeColour(percent) {
     	var t = percent < 0 ? 0:255, p = percent < 0 ? percent*-1:percent
-	return "rgb("+(Math.round((t-R)*t)+R)+","+(Math.round((t-G)*p)+G)+","+(Math.round((t-B)*p)+B)+")"
+	return "rgb("+(Math.round((t-R)*p)+R)+","+(Math.round((t-G)*p)+G)+","+(Math.round((t-B)*p)+B)+")"
     }
 
     function shadeColour2(percent) {
     	var t = percent < 0 ? 0:255, p = percent < 0 ? percent*-1:percent
-	return "rgb("+(Math.round((t-R)*p)+R)+","+(Math.round((t-G)*p)+G)+","+(Math.round((t-B)*p)+B)+")"
+	return "rgb("+(Math.round((t-R2)*p)+R2)+","+(Math.round((t-G2)*p)+G2)+","+(Math.round((t-B2)*p)+B2)+")"
     }
-
+	  
     function init()
     {
         //setup all points
