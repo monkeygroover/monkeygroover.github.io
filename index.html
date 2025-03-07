@@ -18,10 +18,11 @@
   <script type="application/javascript">
     var N = 4500;  // # of dots to use, multiple of 12 please!!
 
-    //var R = 265, G = 165, B = 20
-    //var R2 = 63, G2 = 131, B2 = 200
-    var R = 188, G = 0, B = 255
-    var R2 = 99, G2 = 174, B2 = 107
+ 
+    var R = 63, G = 131, B = 200
+    var R2 = 265, G2 = 165, B2 = 20
+    // var R = 188, G = 0, B = 255
+    // var R2 = 99, G2 = 174, B2 = 107
     
     
     //shape a
@@ -42,14 +43,6 @@
 
     var centreX = 0
     var centerY = 0
-
-    function rndGauss() {
-        return (((Math.random() + Math.random() + Math.random() + Math.random() + Math.random() + Math.random()) - 3) / 3)
-    }
-    
-    function rndUniform() {
-        return (Math.random() * 2 - 1)
-    }
 
     function shadeColour(percent) {
     	var t = percent < 0 ? 0:255, p = percent < 0 ? percent*-1:percent
@@ -84,17 +77,26 @@
         for(i=0; i < N/12; i++) {xa[i+N/12*10] =-1; ya[i+N/12*10] = 1; za[i+N/12*10] = i*24/N - 1;}
         for(i=0; i < N/12; i++) {xa[i+N/12*11] =-1; ya[i+N/12*11] =-1; za[i+N/12*11] = i*24/N - 1;}
 
-	//"fuzz" all the points to make it look blurred
-	for (i = 0; i < N; i++) xa[i] = xa[i] - 0.05 + Math.random() * 0.1
-	for (i = 0; i < N; i++) ya[i] = ya[i] - 0.05 + Math.random() * 0.1
-	for (i = 0; i < N; i++) za[i] = za[i] - 0.05 + Math.random() * 0.1
+        // chaos game sierpinski's tetrahedron
+        corners = [
+          [-1, 1, 1],
+          [1, -1, 1],
+          [1, 1, -1],
+          [-1, -1, -1]
+        ]
 
-        //volumetric dots inside
+        last_point = corners[0]
+
         for(i=0; i < N; i++) {
-            xb[i]=rndUniform()
-            yb[i]=rndUniform()
-            zb[i]=rndUniform()
+          // pick another random corner
+            new_point = corners[Math.floor(Math.random()*4)]
+
+            xb[i]=(new_point[0] + last_point[0]) / 2
+            yb[i]=(new_point[1] + last_point[1]) / 2
+            zb[i]=(new_point[2] + last_point[2]) / 2
+            last_point = [xb[i], yb[i], zb[i]]
         }
+
 
         mainLoop()
     }
