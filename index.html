@@ -19,7 +19,7 @@
   </style>
 
   <script type="application/javascript">
-    var N = 4500;  // # of dots to use, multiple of 12 please!!
+    var N = 9000;  // # of dots to use, multiple of 12 please!!
 
 
     var R = 63, G = 131, B = 200
@@ -40,9 +40,6 @@
     var a = 0
     var b = 0
     var c = 0
-    var currStep = 0
-    var step = 0.02
-    var paused = false
 
     var centreX = 0
     var centerY = 0
@@ -105,8 +102,8 @@
 
     function mainLoop() {
       a = 0.0
-      b += 0.01
-      c += 0.03
+      b += 0.005
+      c += 0.01
 
       var ca = Math.cos(a)
       var sa = Math.sin(a)
@@ -159,10 +156,8 @@
 
         ctx.fillStyle = shadeColour2((-z1 / 3))
 
-        ctx.fillRect(centreX + (1600 * x1) / (z1 + 9), centerY + (1600 * y1) / (z1 + 9), 4 - z1, 4 - z1)
+        ctx.fillRect(centreX + (1600 * x1) / (z1 + 7), centerY + (1600 * y1) / (z1 + 7), 4 - z1, 4 - z1)
       }
-
-      currStep += step;
 
       setTimeout('mainLoop()', 0)
     }
