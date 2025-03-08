@@ -127,7 +127,7 @@
 
       ctx.globalAlpha = 0.3
 
-      for (i = 0; i < N+NC; i++) {
+      for (i = 0; i < NC; i++) {
         //move each particle
 
         var x0 = xa[i]
@@ -144,7 +144,9 @@
         // translate/scale x and y to fit screen.  
         // apply depth scaling ( / (z + const) ) const found by trial and error to give a pleasing focal length
         ctx.fillRect(centreX + (1600 * x1) / (z1 + 7), centerY + (1600 * y1) / (z1 + 7), 5 - z1, 5 - z1)
+      }
 
+      for (i = 0; i < N; i++) {
         //draw second set of points (todo: tidy up)
         x0 = xb[i]
         y0 = yb[i]
