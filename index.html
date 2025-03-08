@@ -19,16 +19,18 @@
   </style>
 
   <script type="application/javascript">
-    var NC = 600
-    var N = 18000;  // # of dots to use, multiple of 12 please!!
-
-
-    var R = 63, G = 200, B = 100
-    var R2 = 265, G2 = 165, B2 = 20
-    // var R = 188, G = 0, B = 255
-    // var R2 = 99, G2 = 174, B2 = 107
-
-
+    var NC = 600 // # of dots to use for the cube, multiple of 12
+    var N = 18000 // # of dots for the chaosgame 
+    
+    var colours = [
+      [63, 200, 100],
+      [265, 165, 20],
+      [188, 0, 255],
+      [99, 174, 107],
+      [255, 255, 100],
+      [255, 100, 255]
+    ]
+    
     //shape a
     var xa = new Array()
     var ya = new Array()
@@ -45,14 +47,17 @@
     var centreX = 0
     var centerY = 0
 
-    function shadeColour(percent) {
+    cube_colour = colours[Math.floor(Math.random() * colours.length))]
+    chaos_colour = colours[Math.floor(Math.random() * colours.length))]
+        
+    function cubeColour(percent) {
       var t = percent < 0 ? 0 : 255, p = percent < 0 ? percent * -1 : percent
-      return "rgb(" + (Math.round((t - R) * p) + R) + "," + (Math.round((t - G) * p) + G) + "," + (Math.round((t - B) * p) + B) + ")"
+      return "rgb(" + (Math.round((t - cube_colour[0]) * p) + cube_colour[0]) + "," + (Math.round((t - cube_colour[1]) * p) + cube_colour[1]) + "," + (Math.round((t - cube_colour[2]) * p) + cube_colour[2]) + ")"
     }
 
-    function shadeColour2(percent) {
+    function chaosColour2(percent) {
       var t = percent < 0 ? 0 : 255, p = percent < 0 ? percent * -1 : percent
-      return "rgb(" + (Math.round((t - R2) * p) + R2) + "," + (Math.round((t - G2) * p) + G2) + "," + (Math.round((t - B2) * p) + B2) + ")"
+      return "rgb(" + (Math.round((t - chaos_colour[0]) * p) + chaos_colour[0]) + "," + (Math.round((t - chaos_colour[1]) * p) + chaos_colour[1]) + "," + (Math.round((t - chaos_colour[2]) * p) + chaos_colour[2]) + ")"
     }
 
     function init() {
@@ -139,7 +144,7 @@
         var y1 = x0 * (sa * cc + sb * ca * sc) + (y0 * ca * cb) + z0 * (sa * sc - sb * ca * cc)
         var z1 = -x0 * sc * cb + y0 * sb + z0 * cb * cc
 
-        ctx.fillStyle = shadeColour((-z1 / 3))
+        ctx.fillStyle = cubeColour((-z1 / 3))
 
         // translate/scale x and y to fit screen.  
         // apply depth scaling ( / (z + const) ) const found by trial and error to give a pleasing focal length
@@ -157,7 +162,7 @@
         y1 = x0 * (sa * cc + sb * ca * sc) + (y0 * ca * cb) + z0 * (sa * sc - sb * ca * cc)
         z1 = -x0 * sc * cb + y0 * sb + z0 * cb * cc
 
-        ctx.fillStyle = shadeColour2((-z1 / 3))
+        ctx.fillStyle = chaosColour((-z1 / 3))
 
         ctx.fillRect(centreX + (1600 * x1) / (z1 + 7), centerY + (1600 * y1) / (z1 + 7), 4 - z1, 4 - z1)
       }
