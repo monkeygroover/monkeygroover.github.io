@@ -19,6 +19,7 @@
   </style>
 
   <script type="application/javascript">
+    var NC = 600
     var N = 9000;  // # of dots to use, multiple of 12 please!!
 
 
@@ -59,22 +60,22 @@
 
       //cube outline lines
       //top
-      for (i = 0; i < N / 12; i++) { xa[i] = i * 24 / N - 1; ya[i] = -1; za[i] = 1; }
-      for (i = 0; i < N / 12; i++) { xa[i + N / 12] = 1; ya[i + N / 12] = i * 24 / N - 1; za[i + N / 12] = 1; }
-      for (i = 0; i < N / 12; i++) { xa[i + N / 12 * 2] = (i + 1) * 24 / N - 1; ya[i + N / 12 * 2] = 1; za[i + N / 12 * 2] = 1; } // (i+1) correct missing dot at 1,1,1
-      for (i = 0; i < N / 12; i++) { xa[i + N / 12 * 3] = -1; ya[i + N / 12 * 3] = (i + 1) * 24 / N - 1; za[i + N / 12 * 3] = 1; } // (i+1) correct missing dot at 1,1,1
+      for (i = 0; i < NC / 12; i++) { xa[i] = i * 24 / NC - 1; ya[i] = -1; za[i] = 1; }
+      for (i = 0; i < NC / 12; i++) { xa[i + NC / 12] = 1; ya[i + NC / 12] = i * 24 / NC - 1; za[i + NC / 12] = 1; }
+      for (i = 0; i < NC / 12; i++) { xa[i + NC / 12 * 2] = (i + 1) * 24 / NC - 1; ya[i + NC / 12 * 2] = 1; za[i + NC / 12 * 2] = 1; } // (i+1) correct missing dot at 1,1,1
+      for (i = 0; i < NC / 12; i++) { xa[i + NC / 12 * 3] = -1; ya[i + NC / 12 * 3] = (i + 1) * 24 / NC - 1; za[i + NC / 12 * 3] = 1; } // (i+1) correct missing dot at 1,1,1
 
       //bottom
-      for (i = 0; i < N / 12; i++) { xa[i + N / 12 * 4] = i * 24 / N - 1; ya[i + N / 12 * 4] = -1; za[i + N / 12 * 4] = -1; }
-      for (i = 0; i < N / 12; i++) { xa[i + N / 12 * 5] = 1; ya[i + N / 12 * 5] = i * 24 / N - 1; za[i + N / 12 * 5] = -1; }
-      for (i = 0; i < N / 12; i++) { xa[i + N / 12 * 6] = i * 24 / N - 1; ya[i + N / 12 * 6] = 1; za[i + N / 12 * 6] = -1; }
-      for (i = 0; i < N / 12; i++) { xa[i + N / 12 * 7] = -1; ya[i + N / 12 * 7] = i * 24 / N - 1; za[i + N / 12 * 7] = -1; }
+      for (i = 0; i < NC / 12; i++) { xa[i + NC / 12 * 4] = i * 24 / NC - 1; ya[i + NC / 12 * 4] = -1; za[i + NC / 12 * 4] = -1; }
+      for (i = 0; i < NC / 12; i++) { xa[i + NC / 12 * 5] = 1; ya[i + NC / 12 * 5] = i * 24 / NC - 1; za[i + NC / 12 * 5] = -1; }
+      for (i = 0; i < NC / 12; i++) { xa[i + NC / 12 * 6] = i * 24 / NC - 1; ya[i + NC / 12 * 6] = 1; za[i + NC / 12 * 6] = -1; }
+      for (i = 0; i < NC / 12; i++) { xa[i + NC / 12 * 7] = -1; ya[i + NC / 12 * 7] = i * 24 / NC - 1; za[i + NC / 12 * 7] = -1; }
 
       //columns
-      for (i = 0; i < N / 12; i++) { xa[i + N / 12 * 8] = 1; ya[i + N / 12 * 8] = 1; za[i + N / 12 * 8] = i * 24 / N - 1; }
-      for (i = 0; i < N / 12; i++) { xa[i + N / 12 * 9] = 1; ya[i + N / 12 * 9] = -1; za[i + N / 12 * 9] = i * 24 / N - 1; }
-      for (i = 0; i < N / 12; i++) { xa[i + N / 12 * 10] = -1; ya[i + N / 12 * 10] = 1; za[i + N / 12 * 10] = i * 24 / N - 1; }
-      for (i = 0; i < N / 12; i++) { xa[i + N / 12 * 11] = -1; ya[i + N / 12 * 11] = -1; za[i + N / 12 * 11] = i * 24 / N - 1; }
+      for (i = 0; i < NC / 12; i++) { xa[i + NC / 12 * 8] = 1; ya[i + NC / 12 * 8] = 1; za[i + NC / 12 * 8] = i * 24 / NC - 1; }
+      for (i = 0; i < NC / 12; i++) { xa[i + NC / 12 * 9] = 1; ya[i + NC / 12 * 9] = -1; za[i + NC / 12 * 9] = i * 24 / NC - 1; }
+      for (i = 0; i < NC / 12; i++) { xa[i + NC / 12 * 10] = -1; ya[i + NC / 12 * 10] = 1; za[i + NC / 12 * 10] = i * 24 / NC - 1; }
+      for (i = 0; i < NC / 12; i++) { xa[i + NC / 12 * 11] = -1; ya[i + NC / 12 * 11] = -1; za[i + NC / 12 * 11] = i * 24 / NC - 1; }
 
       // chaos game sierpinski's tetrahedron
       corners = [
@@ -126,7 +127,7 @@
 
       ctx.globalAlpha = 0.3
 
-      for (i = 0; i < N; i++) {
+      for (i = 0; i < N+NC; i++) {
         //move each particle
 
         var x0 = xa[i]
